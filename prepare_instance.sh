@@ -1,22 +1,28 @@
 #!/bin/bash
 
 # prepare_instance.sh — run before each instance.
-#
-# It receives every column of the instance's row in instances.csv, in file order. For
-# the default layout that is:
-# - $1: benchmark, e.g. "TORA"
-# - $2: instance,  e.g. "reach"
-# A category may add further columns; they follow, in order (a "timeout" column, if the
-# category sets one, is among them).
+# Arguments:
+# - $1: interface version string, e.g. "v1"
+# - $2: category, e.g. "AINNCS"
+# - $3: benchmark, e.g. "TORA"
+# - $4: instance,  e.g. "reach"
+# Any further columns the category adds to instances.csv follow, in file order.
 #
 # A nonzero exit code skips this instance.
 
 set -e
 
-BENCHMARK="$1"
-INSTANCE="$2"
+VERSION_STRING="v1"
+if [ "$1" != "$VERSION_STRING" ]; then
+    echo "Expected first argument (version string) '$VERSION_STRING', got '$1'"
+    exit 1
+fi
 
-echo "Preparing $BENCHMARK / $INSTANCE"
+CATEGORY="$2"
+BENCHMARK="$3"
+INSTANCE="$4"
+
+echo "Preparing [$CATEGORY] $BENCHMARK / $INSTANCE"
 
 # TODO: prepare anything this instance needs (compile the model, warm caches, ...).
 
