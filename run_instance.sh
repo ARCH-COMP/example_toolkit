@@ -21,7 +21,11 @@ INSTANCE="$2"
 
 echo "Running $BENCHMARK / $INSTANCE -> $RESULTS_FILE"
 
-# TODO: run your tool on this instance and decide the verdict.
+# Stand-in for the actual tool run (~1s of "execution") so the skeleton is runnable
+# as-is and usable as a test fixture.
+# TODO: tool authors must replace this line with the real tool invocation.
+sleep 1
+
 VERDICT="unknown"   # one of: verified, falsified, unknown, error
 
 # Write the results file: a header row plus one data row. It must contain a "result"
