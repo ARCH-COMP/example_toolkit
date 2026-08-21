@@ -24,8 +24,10 @@ fi
 CATEGORY="$2"
 BENCHMARK="$3"
 INSTANCE="$4"
-# The results file is always the last argument.
-RESULTS_FILE="${@: -1}"
+# The results file is the second-to-last argument; figures_dir is the last.
+RESULTS_FILE="${@: -2:1}"
+FIGURES_DIR="${@: -1}"
+mkdir -p "$FIGURES_DIR"
 
 echo "Running [$CATEGORY] $BENCHMARK / $INSTANCE -> $RESULTS_FILE"
 
@@ -41,3 +43,7 @@ VERDICT="unknown"   # one of: verified, falsified, unknown, error
 #   printf 'result,time_random,time_violation,time_reachable,time_verification\n' > "$RESULTS_FILE"
 #   printf '%s,%s,%s,%s,%s\n' "$VERDICT" "$t_rand" "$t_viol" "$t_reach" "$t_verif" >> "$RESULTS_FILE"
 printf 'result\n%s\n' "$VERDICT" > "$RESULTS_FILE"
+
+# Example: save a figure to the provided figures directory.
+# Tool authors can save any output files here (plots, images, etc.).
+echo "Example figure placeholder" > "$FIGURES_DIR/example_figure.txt"
